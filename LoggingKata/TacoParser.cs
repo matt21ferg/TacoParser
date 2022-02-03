@@ -21,6 +21,11 @@
                 // Do not fail if one record parsing fails, return null
                 return null; // TODO Implement
             }
+             
+            
+                var lat = double.Parse(cells[0]);
+                var lon = double.Parse(cells[1]);
+                var name = cells[2];
 
             // grab the latitude from your array at index 0
             // grab the longitude from your array at index 1
@@ -31,14 +36,19 @@
 
             // You'll need to create a TacoBell class
             // that conforms to ITrackable
+            var point = new Point() { Latitude = lat, Longitude = lon };
 
+            var tacoBell = new TacoBell(){ Name = name, Location = point };
+
+            return tacoBell;
+               
             // Then, you'll need an instance of the TacoBell class
             // With the name and point set correctly
 
             // Then, return the instance of your TacoBell class
             // Since it conforms to ITrackable
 
-            return null;
+            
         }
     }
 }

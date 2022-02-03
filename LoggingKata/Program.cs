@@ -14,7 +14,7 @@ namespace LoggingKata
         {
             // TODO:  Find the two Taco Bells that are the furthest from one another.
             // HINT:  You'll need two nested forloops ---------------------------
-
+           
             logger.LogInfo("Log initialized");
 
             // use File.ReadAllLines(path) to grab all the lines from your csv file
@@ -25,6 +25,8 @@ namespace LoggingKata
 
             // Create a new instance of your TacoParser class
             var parser = new TacoParser();
+            
+           
 
             // Grab an IEnumerable of locations using the Select command: var locations = lines.Select(parser.Parse);
             var locations = lines.Select(parser.Parse).ToArray();
@@ -35,6 +37,34 @@ namespace LoggingKata
 
             // TODO: Create two `ITrackable` variables with initial values of `null`. These will be used to store your two taco bells that are the farthest from each other.
             // Create a `double` variable to store the distance
+            ITrackable tb1 = null;
+            ITrackable tb2 = null;
+            double distance = 0;
+
+            for(int i = 0;i < locations.Length ; i++)
+            {
+                var locA = locations[i];
+                var CorA = new GeoCoordinate(locA.Location.Latitude, locA.Location.Longitude);
+                
+                for(int x = 0; x < locations.Length;x++)
+                {
+                    var locB = locations[x];
+                    var corB = new GeoCoordinate(locB.Location.Latitude, locB.Location.Longitude);
+                
+                    if(CorA.GetDistanceTo(corB) > distance)
+                    {
+                        distance = CorA.GetDistanceTo(corB);
+                        tb1 = locA;
+                        tb2 = locB;
+                    }
+                                
+                }
+            
+            }
+                var di = distance / 1609;
+            Console.WriteLine($"the farthest taco bell {tb1.Name} and {tb2.Name} and they are {di} miles apart!");
+            
+            
 
             // Include the Geolocation toolbox, so you can compare locations: `using GeoCoordinatePortable;`
 
